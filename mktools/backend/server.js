@@ -8,7 +8,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Rotas
-app.use('/', userRoutes);
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../frontend/public/index.html')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/public/index.html'));
+});
 
 // Inicia o servidor
 app.listen(port, () => {
